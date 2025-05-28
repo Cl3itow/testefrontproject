@@ -83,7 +83,7 @@ export default function Home() {
           </div>
           <div>
             <p className="font-bold">🚚</p>
-            <p>Fast entrega, pisco checkout</p>
+            <p>Fast entrega, piscou chegou</p>
           </div>
           <div>
             <p className="font-bold">🕐</p>
