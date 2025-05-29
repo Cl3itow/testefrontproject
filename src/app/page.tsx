@@ -7,29 +7,51 @@ import { getProdutos } from "@/app/services/produtoservice";
 
 export default function Home() {
   const [produtos, setProdutos] = useState<Produto[]>([]);
+  const [menuAberto, setMenuAberto] = useState(false); // Estado do menu suspenso
 
   useEffect(() => {
     getProdutos().then(setProdutos).catch(console.error);
   }, []);
 
   return (
-    <div className="min-h-screen bg-white text-neutral-800">
-      {/* Header */}
-      <header className="flex items-center justify-between p-6 shadow-sm">
-        <h1 className="text-xl font-bold">Vemver</h1>
-        <nav className="hidden sm:flex gap-6 text-sm">
-          <a href="#">Início</a>
-          <a href="#">Categorias</a>
-          <a href="#">Marcas</a>
-          <a href="#">Campanhas</a>
-          <a href="#">Acessórios</a>
-          <a href="#">Sobre nós</a>
-        </nav>
-        <div className="flex gap-4">
-          <button>🔍</button>
-          <button>🛒</button>
-          <button>👤</button>
+    <div className="min-h-screen bg-white text-neutral-800 pt-24">
+      {/* Header fixo com menu suspenso */}
+      <header className="fixed top-0 left-0 w-full bg-white z-50 shadow-md">
+        <div className="flex items-center justify-between p-4 max-w-7xl mx-auto">
+          <h1 className="text-xl font-bold">Vemver</h1>
+
+          {/* Menu desktop */}
+          <nav className="hidden sm:flex gap-6 text-sm">
+            <a href="#">Início</a>
+            <a href="#">Categorias</a>
+            <a href="#">Marcas</a>
+            <a href="#">Campanhas</a>
+            <a href="#">Acessórios</a>
+            <a href="#">Sobre nós</a>
+          </nav>
+
+          {/* Ícones e botão menu mobile */}
+          <div className="flex gap-4 items-center">
+            <button>🔍</button>
+            <button>🛒</button>
+            <button>👤</button>
+            <button className="sm:hidden text-2xl" onClick={() => setMenuAberto(!menuAberto)}>
+              ☰
+            </button>
+          </div>
         </div>
+
+        {/* Menu suspenso mobile */}
+        {menuAberto && (
+          <nav className="sm:hidden flex flex-col gap-4 px-4 pb-4 bg-white text-sm border-t">
+            <a href="#">Início</a>
+            <a href="#">Categorias</a>
+            <a href="#">Marcas</a>
+            <a href="#">Campanhas</a>
+            <a href="#">Acessórios</a>
+            <a href="#">Sobre nós</a>
+          </nav>
+        )}
       </header>
 
       {/* Hero */}
@@ -131,9 +153,9 @@ export default function Home() {
           <div className="p-6 border rounded-xl">
             <p className="italic mb-4">“Amei o atendimento e a qualidade do óculos.”</p>
             <div className="flex items-center gap-4">
-              <Image src="/user2.png" alt="Roberuva" width={40} height={40} className="rounded-full" />
+              <Image src="/user2.png" alt="Roberval" width={40} height={40} className="rounded-full" />
               <div>
-                <p className="font-semibold">Roberuva</p>
+                <p className="font-semibold">Roberval</p>
                 <p className="text-sm text-gray-500">⭐ 5.0</p>
               </div>
             </div>
@@ -145,12 +167,12 @@ export default function Home() {
       <footer className="bg-[#D5F2EF] p-6 text-center text-sm">
         <div className="mb-4">
           <p className="font-bold">Vemver</p>
-          <p>We help you find your dream glasses.</p>
+          <p>Ajudamos você a encontrar os óculos dos seus sonhos.</p>
         </div>
         <div className="flex justify-center gap-4 mb-2">
-          <a href="#">Information</a>
-          <a href="#">Company</a>
-          <a href="#">Contact</a>
+          <a href="#">Informação</a>
+          <a href="#">Companhia</a>
+          <a href="#">Contato</a>
         </div>
         <p>2025 © Todos os direitos reservados - Vemver</p>
       </footer>
